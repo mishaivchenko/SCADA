@@ -1,0 +1,6 @@
+servlet\Show_Registers.class
+ConnectionToDevice\Test_Read.class
+Entity\Device.class
+servlet\GetParametrsServlet.class
+servlet\Progress_Servlet.class
+servlet\update_char.class
