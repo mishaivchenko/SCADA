@@ -1,9 +1,8 @@
 package dao.daoImpl;
 
+import Entity.User;
 import dao.Dao;
 import dao.DaoFactory;
-
-import Entity.User;
 
 public class DaoFactoryImpl implements DaoFactory<Dao> {
     private static final DaoFactoryImpl daoFactory = new DaoFactoryImpl();

@@ -1,27 +1,28 @@
 package dao.daoImpl;
 
+import Entity.User;
 import dao.ConnectionPool;
 import dao.Dao;
-import Entity.User;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoImpl implements Dao<User> {
-    ConnectionPool connectionPool = ConnectionPool.getInstance();
     private final String CREATE = "INSERT INTO users (firstName, lastName, username, password, status,role,email) VALUES (?, ?, ?, ?, ?,?,?)";
     private final String READ = "SELECT * FROM users WHERE userId = ?";
     private final String READ_ALL = "SELECT * FROM users";
     private final String UPDATE = "UPDATE users SET firstName = ?, lastName = ?, userName = ?, password = ?, status = ?, role = ? , email= ? WHERE  userId = ? ";
     private final String DELETE = "DELETE FROM users WHERE userId= ?";
     private final String READ_BY_NAME = "SELECT * FROM users WHERE username = ?";
+    ConnectionPool connectionPool = ConnectionPool.getInstance();
+
     public void setConnectionPool(ConnectionPool connectionPool) {
         this.connectionPool = connectionPool;
     }
 
     public User getUserByName(String name) {
-        if(connectionPool==null) connectionPool = ConnectionPool.getInstance();
+        if (connectionPool == null) connectionPool = ConnectionPool.getInstance();
         try (Connection connection = connectionPool.getConnection(); PreparedStatement ps = connection.prepareStatement(READ_BY_NAME)) {
             ps.setString(1, name);
             try (ResultSet resultSet = ps.executeQuery()) {
@@ -42,9 +43,10 @@ public class UserDaoImpl implements Dao<User> {
         }
         return null;
     }
+
     @Override
     public boolean create(User element) {
-        if(connectionPool==null) connectionPool = ConnectionPool.getInstance();
+        if (connectionPool == null) connectionPool = ConnectionPool.getInstance();
         try (Connection connection = connectionPool.getConnection(); PreparedStatement ps = connection.prepareStatement(CREATE, PreparedStatement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, element.getFirstName());
             ps.setString(2, element.getLastName());
@@ -68,7 +70,7 @@ public class UserDaoImpl implements Dao<User> {
 
     @Override
     public User read(int id) {
-        if(connectionPool==null) connectionPool = ConnectionPool.getInstance();
+        if (connectionPool == null) connectionPool = ConnectionPool.getInstance();
         try (Connection connection = connectionPool.getConnection(); PreparedStatement ps = connection.prepareStatement(READ)) {
             ps.setInt(1, id);
             try (ResultSet resultSet = ps.executeQuery()) {
@@ -93,8 +95,8 @@ public class UserDaoImpl implements Dao<User> {
     @Override
     public List<User> read() {
         List<User> userList = new ArrayList<>();
-        if(connectionPool==null) connectionPool = ConnectionPool.getInstance();
-        try (Connection connection =connectionPool.getConnection(); Statement s = connection.createStatement()) {
+        if (connectionPool == null) connectionPool = ConnectionPool.getInstance();
+        try (Connection connection = connectionPool.getConnection(); Statement s = connection.createStatement()) {
             try (ResultSet resultSet = s.executeQuery(READ_ALL)) {
                 while (resultSet.next()) {
                     userList.add(new User(resultSet.getInt("userId"),
@@ -116,7 +118,7 @@ public class UserDaoImpl implements Dao<User> {
 
     @Override
     public boolean update(User element) {
-        if(connectionPool==null) connectionPool = ConnectionPool.getInstance();
+        if (connectionPool == null) connectionPool = ConnectionPool.getInstance();
         try (Connection connection = connectionPool.getConnection(); PreparedStatement ps = connection.prepareStatement(UPDATE, PreparedStatement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, element.getFirstName());
             ps.setString(2, element.getLastName());
@@ -136,7 +138,7 @@ public class UserDaoImpl implements Dao<User> {
 
     @Override
     public boolean delete(int id) {
-        if(connectionPool==null) connectionPool = ConnectionPool.getInstance();
+        if (connectionPool == null) connectionPool = ConnectionPool.getInstance();
         try (Connection connection = connectionPool.getConnection(); PreparedStatement ps = connection.prepareStatement(DELETE)) {
             ps.setInt(1, id);
             ps.executeUpdate();

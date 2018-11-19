@@ -2,14 +2,14 @@ package Entity;
 
 public class Device {
 
-  private String name;
-  private String value;
+    private String name;
+    private String value;
+
 
     public Device(String name, String value) {
         this.name = name;
         this.value = value;
     }
-
 
 
     public String getName() {

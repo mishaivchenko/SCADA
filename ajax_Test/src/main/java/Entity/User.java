@@ -1,12 +1,6 @@
 package Entity;
 
 public class User {
-public enum UserStatus{
-    NONBLOCKING,BLOCKED
-}
-public enum Role{
-    ADMIN,CLIENT
-}
     private int userId;
     private String firstName;
     private String lastName;
@@ -15,7 +9,6 @@ public enum Role{
     private String email;
     private Role userRole;
     private UserStatus userStatus;
-
     public User(int userId, String firstName, String lastName, String userName, String password, String email, Role userRole, UserStatus userStatus) {
         this.userId = userId;
         this.firstName = firstName;
@@ -121,7 +114,7 @@ public enum Role{
         return result;
     }
 
-   @Override
+    @Override
     public String toString() {
         return "User{" +
                 "userId=" + userId +
@@ -133,5 +126,13 @@ public enum Role{
                 ", userRole=" + userRole +
                 ", userStatus=" + userStatus +
                 '}';
+    }
+
+    public enum UserStatus {
+        NONBLOCKING, BLOCKED
+    }
+
+    public enum Role {
+        ADMIN, CLIENT
     }
 }

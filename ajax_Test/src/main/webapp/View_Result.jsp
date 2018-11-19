@@ -26,14 +26,14 @@
 
 <h1>Result</h1>
 
-<body onload="show_Value();show_Words()">
-<div class="form-row justify-content-md-center " >
+<body onload="show_Words();show_Value()">
+<div class="form-row justify-content-md-center ">
     <div class="form-group col col-md-5">
         <div id="MyFuckingMap"></div>
     </div>
     <div class="form-group col col-md-5">
 
-        <div id = "MyFuckingMap2"></div>
+        <div id="MyFuckingMap2"></div>
     </div>
 </div>
 <div id="container" class="row justify-content-md-center">

@@ -5,6 +5,6 @@ import dao.daoImpl.UserDaoImpl;
 public interface DaoFactory<Dao> {
 
 
-        UserDaoImpl getUserDaoImpl();
+    UserDaoImpl getUserDaoImpl();
 
 }

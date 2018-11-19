@@ -14,7 +14,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <%--<fmt:setLocale value="en_En"/>
     <fmt:setBundle basename="i18n.messages" var="msg"/>--%>
-<%--<ctg:locale message="${pageScope.lang}"/>--%>
+    <%--<ctg:locale message="${pageScope.lang}"/>--%>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
@@ -23,26 +23,30 @@
                     <c:when test="${sessionScope.User.getUserRole() eq 'ADMIN'}">
                         <form class="form-inline my-2 my-lg-0">
 
-                            <button class="btn btn-link" type="submit" formaction="/getUsers" formmethod="get"><c:out value="Choose params"/></button>
+                            <button class="btn btn-link" type="submit" formaction="/getUsers" formmethod="get"><c:out
+                                    value="Choose params"/></button>
                         </form>
                     </c:when>
 
                     <c:otherwise>
-                        <a class="nav-link disabled" href="${pageContext.request.contextPath}/jsp/login.jsp"><c:out value="see status"/></a>
+                        <a class="nav-link disabled" href="${pageContext.request.contextPath}/jsp/login.jsp"><c:out
+                                value="see status"/></a>
                     </c:otherwise>
                 </c:choose>
             </li>
 
             <li class="nav-item active">
-                        <form class="form-inline my-2 my-lg-0">
-                            <button class="btn btn-link" type="submit" formaction="/getCars" formmethod="get"><c:out value="errors"/></button>
-                        </form>
+                <form class="form-inline my-2 my-lg-0">
+                    <button class="btn btn-link" type="submit" formaction="/getCars" formmethod="get"><c:out
+                            value="errors"/></button>
+                </form>
             </li>
 
             <li class="nav-item active">
-                        <form class="form-inline my-2 my-lg-0">
-                            <a class="nav-link " href="${pageContext.request.contextPath}/jsp/admin/createCar.jsp"><c:out value="Help"/></a>
-                        </form>
+                <form class="form-inline my-2 my-lg-0">
+                    <a class="nav-link " href="${pageContext.request.contextPath}/jsp/admin/createCar.jsp"><c:out
+                            value="Help"/></a>
+                </form>
 
             </li>
 
@@ -52,21 +56,23 @@
                 </c:when>
                 <c:otherwise>
                     <li class="nav-item">
-                        <a class="nav-link disabled" href="#"><ctg:locale message="Hello"/> ${sessionScope.User.getLastName()} </a>
+                        <a class="nav-link disabled" href="#"><ctg:locale
+                                message="Hello"/> ${sessionScope.User.getLastName()} </a>
                     </li>
                 </c:otherwise>
             </c:choose>
 
 
-        <form class="form-inline my-2 my-lg-0">
-                <select class="custom-select" name = "lang" required>
+            <form class="form-inline my-2 my-lg-0">
+                <select class="custom-select" name="lang" required>
                     <option value="ru">Russian</option>
                     <option value="en">English</option>
-                    <option selected ="selected"></option>
+                    <option selected="selected"></option>
                 </select>
 
-            <button class="btn btn-link my-2 my-sm-0" type="submit" formaction="/changeLocal" formmethod="get"><c:out value="changeLang"/></button>
-        </form>
+                <button class="btn btn-link my-2 my-sm-0" type="submit" formaction="/changeLocal" formmethod="get">
+                    <c:out value="changeLang"/></button>
+            </form>
         </ul>
 
         <c:if test="${User!=null}">

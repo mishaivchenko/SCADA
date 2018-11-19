@@ -1,5 +1,4 @@
-
-function highChart(){
+function highChart() {
     Highcharts.chart('container', {
         chart: {
             type: 'spline',

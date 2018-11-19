@@ -7,12 +7,16 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class ConnectionPool {
-private static String path;
-public static final ConnectionPool INSTANCE = new ConnectionPool();
+    public static final ConnectionPool INSTANCE = new ConnectionPool();
+    private static String path;
 
-    public  Connection getConnection(){
-        InitialContext initContext= null;
-        Connection conn= null;
+    public static ConnectionPool getInstance() {
+        return INSTANCE;
+    }
+
+    public Connection getConnection() {
+        InitialContext initContext = null;
+        Connection conn = null;
         try {
             initContext = new InitialContext();
             DataSource ds = (DataSource) initContext.lookup("java:comp/env/jdbc/pet");
@@ -21,10 +25,6 @@ public static final ConnectionPool INSTANCE = new ConnectionPool();
             e.printStackTrace();
         }
         return conn;
-    }
-
-    public static ConnectionPool getInstance() {
-        return INSTANCE;
     }
 }
 //"java:comp/env/jdbc/pet"

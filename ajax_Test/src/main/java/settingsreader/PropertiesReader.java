@@ -13,25 +13,24 @@ public class PropertiesReader implements Reader {
     private Properties properties;
     private List<String> paramNames;
 
-    public PropertiesReader(InputStream inputStream,List<String> params){
+    public PropertiesReader(InputStream inputStream, List<String> params) {
 
         try {
-                properties = new Properties();
-                properties.load(inputStream);
-                paramNames = params;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            properties = new Properties();
+            properties.load(inputStream);
+            paramNames = params;
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+    }
 
     @Override
-    public Map<String,String> read() {
+    public Map<String, String> read() {
         String p;
-        Map<String,String> map = new HashMap<>();
-        for (String param:paramNames) {
+        Map<String, String> map = new HashMap<>();
+        for (String param : paramNames) {
             p = String.valueOf(properties.get(param));
-           /*map.put(p.substring(p.lastIndexOf(":")+1),param.replace('_',' '));*/
-            map.put(p,param.replace('_',' '));
+            map.put(p, param.replace('_', ' '));
         }
         return map;
     }

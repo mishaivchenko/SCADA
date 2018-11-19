@@ -3,5 +3,5 @@ package settingsreader;
 import java.util.Map;
 
 public interface Reader {
-    Map<String,String> read();
+    Map<String, String> read();
 }
