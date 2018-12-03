@@ -1,5 +1,6 @@
 package servlet;
 
+import Entity.Holder;
 import Entity.User;
 
 import javax.servlet.ServletException;
@@ -16,7 +17,7 @@ public class LogoutController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.sendRedirect("/jsp/login.jsp");
+        resp.sendRedirect("/login.jsp");
     }
 
     @Override
@@ -24,10 +25,19 @@ public class LogoutController extends HttpServlet {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("User");
         if (user != null) {
-            // session.removeAttribute("User");
-            session.invalidate();
+            session.removeAttribute("User");
+            clearHolder();
+            //  session.invalidate();
+            this.getServletContext().removeAttribute("User");
         }
 
-        resp.sendRedirect("/jsp/login.jsp");
+        resp.sendRedirect("/login.jsp");
+    }
+
+    private void clearHolder() {
+        Holder.getInfo().clear();
+        Holder.getMap().clear();
+        Holder.getWords().clear();
+        Holder.getInfo().clear();
     }
 }

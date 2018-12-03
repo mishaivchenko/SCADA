@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="utf-8" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ctg" uri="customtags" %>
 <html>
 
 
@@ -71,7 +72,7 @@
                 </select>
 
                 <button class="btn btn-link my-2 my-sm-0" type="submit" formaction="/changeLocal" formmethod="get">
-                    <c:out value="changeLang"/></button>
+                    <ctg:locale message="changeLang"/></button>
             </form>
         </ul>
 

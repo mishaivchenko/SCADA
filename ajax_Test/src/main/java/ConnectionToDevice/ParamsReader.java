@@ -2,6 +2,7 @@ package ConnectionToDevice;
 
 
 import Entity.Device;
+import Entity.Holder;
 import net.wimpi.modbus.ModbusException;
 import net.wimpi.modbus.io.ModbusTCPTransaction;
 import net.wimpi.modbus.msg.ReadMultipleRegistersRequest;
@@ -13,28 +14,45 @@ import java.util.*;
 
 public class ParamsReader {
     private TCPMasterConnection con = null;
+    private List<Device> values;
+    private List<Device> words;
+    private List<Device> info;
 
     public Map<String, List<Device>> CheckValues(HashMap map, TCPMasterConnection con) {
         HashMap<String, List<Device>> params = new HashMap<>();
-        List<Device> values = new ArrayList<>();
-        List<Device> words = new ArrayList<>();
+        values = new ArrayList<>();
+        words = new ArrayList<>();
+        info = new ArrayList<>();
         String key;
 
-        Iterator iterator = ((HashMap<String, String>) map).entrySet().iterator();
+        Iterator<Map.Entry<String, String>> iterator = ((HashMap<String, String>) map).entrySet().iterator();
         while (iterator.hasNext()) {
-            Map.Entry entry = (Map.Entry) iterator.next();
+            Map.Entry<String, String> entry = iterator.next();
             key = entry.getKey().toString();
             ReadMultipleRegistersResponse response = getResponse(con, key);
-            if (isVal((String) entry.getKey())) {
-                values.add(new Device(String.valueOf(entry.getValue()), String.valueOf(response.getRegisterValue(0))));
-            } else {
-                words.add(new Device(String.valueOf(entry.getValue()), Integer.toString(response.getRegisterValue(0), 2)));
-            }
-
+            chooseType(entry,response);
+            Holder.addToMap(String.valueOf(entry.getValue()),String.valueOf(response.getRegisterValue(0)));
         }
         params.put("values", values);
         params.put("words", words);
+        params.put("info",info);
         return params;
+    }
+    private void chooseType(Map.Entry<String,String> entry,  ReadMultipleRegistersResponse response){
+        String key = entry.getKey();
+        if (isVal(key)) {
+            if(isInfo(key)){
+                info.add(new Device(String.valueOf(entry.getValue()), String.valueOf(response.getRegisterValue(0))));
+            }else  {
+                values.add(new Device(String.valueOf(entry.getValue()), String.valueOf(response.getRegisterValue(0))));
+            }
+        } else {
+            if(isInfo(key)){
+                info.add(new Device(String.valueOf(entry.getValue()), Integer.toString(response.getRegisterValue(0), 2)));
+            }else {
+                words.add(new Device(String.valueOf(entry.getValue()), Integer.toString(response.getRegisterValue(0), 2)));
+            }
+        }
     }
 
     public void ConnctionTo(String addres) throws Exception {
@@ -61,6 +79,9 @@ public class ParamsReader {
 
     private boolean isVal(String param) {
         return param.contains("val:");
+    }
+    private boolean isInfo(String param){
+        return param.contains("info:");
     }
 
     public TCPMasterConnection GetConnection() {

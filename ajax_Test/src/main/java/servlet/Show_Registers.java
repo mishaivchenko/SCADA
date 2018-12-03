@@ -45,6 +45,7 @@ public class Show_Registers extends HttpServlet {
                     Map<String, List<Device>> allParams = t_read.CheckValues(map, con);
                     Holder.setValues(allParams.get("values"));
                     Holder.setWords(allParams.get("words"));
+                    Holder.setInfo(allParams.get("info"));
                     String JSON = builder.toJson(allParams.get("values"));
                     session.setAttribute("connect", con);
                     this.getServletContext().setAttribute("JSON", JSON);

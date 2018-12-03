@@ -23,6 +23,10 @@ function show_Value() {
                 names.push(Devices[i]['name']);
             }
             html += '</table>' + '</div>';
+
+            window.mass= values;
+            window.pNames = names;
+
             window.values = Number(Devices[0]['value']);
             div = document.getElementById("MyFuckingMap");
             div.innerHTML = html;

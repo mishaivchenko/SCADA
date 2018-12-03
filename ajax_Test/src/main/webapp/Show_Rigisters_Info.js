@@ -1,4 +1,4 @@
-function show_Words() {
+function show_Info() {
     function Device(name, value) {
         this.name = name;
         this.value = value;
@@ -10,7 +10,7 @@ function show_Words() {
     var names = [];
 
     $.ajax({
-        url: 'show_words',
+        url: 'show_info',
         success: function (responseText) {
             if (responseText !== "") {
 
@@ -19,7 +19,7 @@ function show_Words() {
                 Devices = JSON.parse(responseText);
 
 
-                var html = '<div class="row justify-content-md-center">' + '<table class="table col-md-6 " >' + '<thead class="thead-light" >';
+                var html = '<div class="row justify-content-md-center">' + '<table class="table table-bordered" >' + '<thead>';
 
                 html += '<tr><th scope="col">Param name</th>' + '<th scope="col">Value</th> </tr> </thead>';
 
@@ -29,12 +29,10 @@ function show_Words() {
                     names.push(Devices[i]['name']);
                 }
                 html += '</table>' + '</div>';
-                div = document.getElementById("MyFuckingMap2");
+                div = document.getElementById("MyFuckingMap3");
                 div.innerHTML = html;
-                setTimeout(2000, show_Words());
-
             } else {
-             show_Words();
+               show_Info();
             }
         }
     });

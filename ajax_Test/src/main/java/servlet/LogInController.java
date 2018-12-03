@@ -16,7 +16,11 @@ import java.util.Locale;
 public class LogInController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.sendRedirect("/View_Result.jsp");
+        if(this.getServletContext().getAttribute("JSON")!=null){
+            resp.sendRedirect("View_Result.jsp");
+        } else {
+            req.getRequestDispatcher("ChooseParametersList.jsp").forward(req, resp);
+        }
     }
 
     @Override
@@ -34,16 +38,22 @@ public class LogInController extends HttpServlet {
                 req.getSession().setAttribute("User", userFromDb);
                 this.getServletContext().setAttribute("User", userFromDb);
                 req.setAttribute("Welcome", "Welcome to " + userFromDb.getUserRole() + " page");
+
                 req.getRequestDispatcher("ChooseParametersList.jsp").forward(req, resp);
+
             } else {
                 // ResourceBundle messages = ResourceBundle.getBundle("i18n.messages", locale);
                 //req.getSession().setAttribute("errorLoginPassMessage", messages.getString("wrongLoginOrPassword"));
                // resp.sendRedirect("login.jsp");
                 req.setAttribute("errorLoginPassMessage","Invalid Data. Please verify your login and password and try again");
                 req.getRequestDispatcher("/login.jsp").forward(req,resp);
+
             }
         } else {
-            resp.sendRedirect("View_Result.jsp");
+            if(this.getServletContext().getAttribute("JSON")!=null){
+                resp.sendRedirect("View_Result.jsp");
+            }
         }
+ //     resp.sendRedirect("/ChooseParametersList.jsp");
     }
 }
